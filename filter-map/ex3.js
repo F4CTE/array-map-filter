@@ -16,12 +16,7 @@ Arguments en entrée:
 
 1. Tableau des campus:
 [
-  { city: 'Bordeaux',
-    curriculums: [
-      { name: 'PHP/Symfony', numStudents: 12 },
-      { name: 'JS/React', numStudents: 29 }
-    ]
-  },
+  { city: 'Bordeaux',curriculums: [{ name: 'PHP/Symfony', numStudents: 12 },{ name: 'JS/React', numStudents: 29 }]},
   {
     city: 'La Loupe',
     curriculums: [
@@ -51,6 +46,19 @@ Sortie attendue:
 */
 
 function getStudentsPerCurriculum(campuses, curriculumName) {
+  studentsPerCurriculumTable = campuses.filter(campus =>
+    campus.curriculums.find(curriculum => curriculum.name === curriculumName))
+    .map(campus => ({
+      [campus.city] : campus.curriculums.find(curriculum => curriculum.name === curriculumName).numStudents
+    })
+  );
+
+  return studentsPerCurriculumTable;
 }
+
+console.log(getStudentsPerCurriculum([{ city: 'Bordeaux',curriculums: [{ name: 'PHP/Symfony', numStudents: 12 },{ name: 'JS/React', numStudents: 29 }]},
+  {city: 'La Loupe',curriculums: [{ name: 'JS/Angular', numStudents: 32 }]},
+  {city: 'Lille',curriculums: [{ name: 'PHP/Symfony', numStudents: 12 },{ name: 'JS/React', numStudents: 10 }]},
+  {city: 'Marseille',curriculums: [{ name: 'JS/React', numStudents: 16 }]}],'PHP/Symfony'))
 
 module.exports = getStudentsPerCurriculum;
